@@ -4,6 +4,7 @@ const port = 3000;
 
 function middleware1(req,res,next){
   console.log(req.headers.counter)
+  res.send("some error")
   next()
 }
 
