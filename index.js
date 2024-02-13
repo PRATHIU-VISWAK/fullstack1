@@ -2,6 +2,12 @@ const express = require("express");
 const app = express();
 const port = 3000;
 
+function middleware1(req,res,next){
+  console.log(req.headers.counter)
+  next()
+}
+
+app.use(middleware1)
 app.get("/hello", (req, res) => {
   res.send("Hello, Express!");
 });
