@@ -1,10 +1,12 @@
 const express = require("express");
 const app = express();
 const port = 3000;
-
+let numberofrequests = 0
 function middleware1(req,res,next){
+  numberofrequests = numberofrequests + 1
+  console.log(numberofrequests)
   console.log(req.headers.counter)
-  res.send("some error")
+  //res.send("some error")
   next()
 }
 
