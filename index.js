@@ -29,9 +29,12 @@ app.post("/math", (req, res) => {
   //var counter = req.headers.counter;
   var counter = req.body.counter
   if(counter <= 100){
-    let val = cal(counter);
-    let ans = "square of 10 : " + val;
-    res.send(ans);
+    //let val = cal(counter);
+    let valobj = {
+      ans : cal(counter)
+    }
+    //let ans = "square of 10 : " + val;
+    res.send(valobj);
   }
   else{
     res.status(400).send("input exceeds 100")
