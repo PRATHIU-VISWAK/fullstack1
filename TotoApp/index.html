@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TODO</title>
+</head>
+<script>
+
+    function ondelete(){
+        fetch("http://localhost:3000/todo",{
+            method : "DELETE",
+            headers :{
+                "Content-Type":"application/json"
+            }
+        }).then(callback3)
+    }
+    function callback3(resp){
+        resp.json().then(todeletetodo);
+    }
+    function todeletetodo(data){
+        
+    }
+
+
+
+
+    function todoparsedResponce(data){
+        console.log(data)
+        let todoDIV = document.getElementById("todoget");
+        //todoDIV.innerHTML = JSON.stringify(data)
+        for(let i=0;i<data.length;i++){
+            let childmain = document.createElement("div");
+
+            let child2 =document.createElement("span");
+            child2.innerHTML = data[i].title + " "
+
+            let child3 =document.createElement("span");
+            child3.innerHTML = data[i].description + " "
+
+            let childdel =document.createElement("button");
+            childdel.setAttribute("onClick","ondelete")
+            childdel.setAttribute("id","btn")
+            childdel.innerHTML = "delete"
+
+            todoDIV.appendChild(child2)
+            todoDIV.appendChild(child3)
+            todoDIV.appendChild(childdel)
+            todoDIV.appendChild(childmain)
+        }
+    }    
+    function callback2(resp){
+        resp.json().then(todoparsedResponce);
+    }
+    function onPressget(){
+        fetch("http://localhost:3000/todo",{
+        method : "GET"
+        }).then(callback2)
+    }
+
+    onPressget()
+
+
+
+
+
+
+    function parsedResponce(data){
+        console.log(data)
+        let todoDIV = document.getElementById("todoget");
+        let childmain = document.createElement("div");
+
+        let child2 =document.createElement("span");
+        child2.innerHTML = data[data.length-1].title + " "
+
+        let child3 =document.createElement("span");
+        child3.innerHTML = data[data.length-1].description + " "
+
+        let childdel =document.createElement("button");
+        childdel.innerHTML = "delete"
+
+        todoDIV.appendChild(child2)
+        todoDIV.appendChild(child3)
+        todoDIV.appendChild(childdel)
+        todoDIV.appendChild(childmain)
+    }
+    function callback(resp){
+        resp.json().then(parsedResponce);
+    }
+    function onPresspost(){
+        fetch("http://localhost:3000/todo",{
+            method : "POST",
+            body : JSON.stringify({
+                title : document.getElementById("title").value,
+                description : document.getElementById("description").value
+            }),
+            headers :{
+                "Content-Type":"application/json"
+            }
+        }).then(callback)
+    }
+
+
+
+
+
+</script>
+<body>
+    todo title
+    <input type="text" name="title" id="title">
+    <br>
+    <br>
+    description
+    <input type="text" name="description" id="description">
+    <br>
+    <br>
+    <!-- <button onclick="onPressget()">get todo</button>-->
+    <button onclick="onPresspost()">send todo</button>
+    
+    <div id="todoget" >
+        
+    </div>
+</body>
+</html>

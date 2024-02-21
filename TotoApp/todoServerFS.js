@@ -2,6 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const fs = require("fs");
 const app = express();
+const path = require("path")
 
 app.use(bodyParser.json());
 
@@ -48,6 +49,7 @@ app.post("/todo", (req, res) => {
     const newtodo = {
       id: x,
       title: req.body.title,
+      description: req.body.description
     };
     todo.push(newtodo);
 
@@ -75,9 +77,15 @@ app.delete("/todo/:id", (req, res) => {
   });
 });
 
+app.get("/",(req,res)=>{
+  res.sendFile(path.join(__dirname , "index.html"))
+})
+
 app.use((req, res, next) => {
   res.status(404).send();
 });
 
+
 app.listen(3000);
+
 module.exports = app;
