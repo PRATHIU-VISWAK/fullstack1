@@ -7,26 +7,21 @@
 </head>
 <script>
 
-    function ondelete(){
-        fetch("http://localhost:3000/todo",{
+    function ondelete(id){
+        fetch("http://localhost:3000/todo/"+id,{
             method : "DELETE",
             headers :{
                 "Content-Type":"application/json"
             }
-        }).then(callback3)
+        }).then(todeletetodo)
     }
-    function callback3(resp){
-        resp.json().then(todeletetodo);
-    }
-    function todeletetodo(data){
-        
+    function todeletetodo(data){    
     }
 
 
 
 
     function todoparsedResponce(data){
-        console.log(data)
         let todoDIV = document.getElementById("todoget");
         //todoDIV.innerHTML = JSON.stringify(data)
         for(let i=0;i<data.length;i++){
@@ -39,8 +34,8 @@
             child3.innerHTML = data[i].description + " "
 
             let childdel =document.createElement("button");
-            childdel.setAttribute("onClick","ondelete")
-            childdel.setAttribute("id","btn")
+            childdel.setAttribute("onClick","ondelete("+data[i].id+")")
+            childdel.setAttribute("id",data[i].id)
             childdel.innerHTML = "delete"
 
             todoDIV.appendChild(child2)
