@@ -49,6 +49,7 @@ app.post("/admin/signup", (req, res) => {
 
 app.post("/admin/login", AuthenticateJwt, (req, res) => {
   // logic to log in admin
+  
   res.send("admin logged in");
 });
 
@@ -72,7 +73,8 @@ app.put("/admin/courses/:courseId", AuthenticateJwt, (req, res) => {
   let course = req.body;
   const updatingcourse = COURSES.find((a) => a.id === courseId);
   if (updatingcourse) {
-    Object.assign(updatingcourse, course);
+    //Object.assign(updatingcourse, course);
+    updatingcourse = course
     res.send("course updated");
   } else {
     res.status(403).json({ message: "course not present" });
